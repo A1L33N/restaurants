@@ -11,9 +11,9 @@ attr_reader :name, :type, :id
     returned_restaurants = DB.exec("SELECT * FROM restaurants;")
     all_restaurants = []
     returned_restaurants.each() do |restaurant|
-      new_restaurant = restaurants.fetch('name')
-      restaurant_type = restaurants.fetch('type')
-      restaurant_id = restaurants.fetch('id').to_i
+      new_restaurant = restaurant.fetch('name')
+      restaurant_type = restaurant.fetch('type')
+      restaurant_id = restaurant.fetch('id').to_i
       all_restaurants.push(Restaurant.new({:name => new_restaurant, :type => restaurant_type, :id => restaurant_id}))
     end
     all_restaurants
@@ -23,4 +23,8 @@ attr_reader :name, :type, :id
     result = DB.exec("INSERT INTO restaurants (name, type) VALUES ('#{@name}', '#{@type}') RETURNING id")
     @id = result.first.fetch('id').to_i
   end
+
+  define_method(:==) do |another_restaurant|
+    self.name().==(another_restaurant.name()).&(self.id().==(another_restaurant.id()))
+    end
 end
