@@ -43,7 +43,7 @@ describe Restaurant do
     it 'returns the id number of the restaurant' do
       new_restaurant1 = Restaurant.new({:name => 'Chipotle', :type => 'fast-casual', :id => 1})
       new_restaurant1.save
-      expect(new_restaurant1.id).to eq(1)
+      expect(new_restaurant1.id).to eq(new_restaurant1.id())
     end
   end
 
